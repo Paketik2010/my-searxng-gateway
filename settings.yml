@@ -1,0 +1,19 @@
+#
+# Финальная конфигурация для SearXNG, работающая через GitHub
+#
+
+server:
+  # ВАЖНО: Мы впишем сюда URL после первого запуска
+  base_url: "https://placeholder.com"
+  use_forwarded_host: true
+
+bot_detection:
+  enabled: false
+  
+search:
+  language: "ru-RU"
+  
+engines:
+  - google
+  - bing
+  - duckduckgo
