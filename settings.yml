@@ -1,5 +1,6 @@
 server:
-  base_url: "https://my-final-search.onrender.com"  # <-- ЗАМЕНИТЕ ЭТОТ URL НА ВАШ РЕАЛЬНЫЙ URL С RENDER
+  base_url: "https://my-final-search.onrender.com/"
+  secret_key: "1111111111111111111111111111111111111111111111111111111111111111"
   use_forwarded_host: true
 
 search:
