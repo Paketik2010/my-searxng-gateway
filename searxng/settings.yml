@@ -1,7 +1,0 @@
-use_default_settings: true
-
-server:
-  secret_key: "1111111111111111111111111111111111111111111111111111111111111111" # Ваш ключ
-  
-bot_detection:
-  enabled: false
