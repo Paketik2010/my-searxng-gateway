@@ -1,0 +1,46 @@
+# Это единственная инструкция, которая нужна Render
+
+services:
+  # Сервис №1: Веб-сервер Caddy. Он будет смотреть наружу.
+  - type: web
+    name: my-searx-gateway # Имя вашего сервиса
+    env: docker
+    # Мы пишем инструкцию для Caddy прямо здесь, внутри файла
+    dockerfile:
+      content: |
+        FROM caddy:2-alpine
+        COPY Caddyfile /etc/caddy/Caddyfile
+    # Порт, который будет слушать Render
+    httpPort: 8080
+    # Файл конфигурации для Caddy
+    files:
+      - path: /etc/caddy/Caddyfile
+        content: |
+          :8080 {
+              reverse_proxy searxng:8080
+          }
+
+  # Сервис №2: Движок SearXNG. Он будет спрятан внутри.
+  - type: pserv # 'pserv' означает Private Service
+    name: searxng # Внутреннее имя для связи с Caddy
+    env: docker
+    # Мы пишем инструкцию для SearXNG прямо здесь
+    dockerfile:
+      content: |
+        FROM searxng/searxng:latest
+        COPY settings.yml /etc/searxng/settings.yml
+    # Файл конфигурации для SearXNG
+    files:
+      - path: /etc/searxng/settings.yml
+        content: |
+          server:
+            # Render сам подставит сюда правильный URL!
+            base_url: ${RENDER_EXTERNAL_URL} 
+            secret_key: "1111111111111111111111111111111111111111111111111111111111111111"
+            use_forwarded_host: true
+
+          search:
+            language: "ru-RU"
+
+          bot_detection:
+            enabled: false
