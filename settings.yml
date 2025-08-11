@@ -1,19 +1,22 @@
-#
-# Финальная конфигурация для SearXNG, работающая через GitHub
-#
-
 server:
-  # ВАЖНО: Мы впишем сюда URL после первого запуска
-  base_url: "https://placeholder.com"
+  base_url: "https://my-final-search.onrender.com"  # <-- ЗАМЕНИТЕ ЭТОТ URL НА ВАШ РЕАЛЬНЫЙ URL С RENDER
   use_forwarded_host: true
+
+search:
+  language: "ru-RU"
 
 bot_detection:
   enabled: false
-  
-search:
-  language: "ru-RU"
-  
+
 engines:
-  - google
-  - bing
-  - duckduckgo
+  - name: google
+    engine: google
+    shortcut: g
+    
+  - name: bing
+    engine: bing
+    shortcut: b
+
+  - name: duckduckgo
+    engine: duckduckgo
+    shortcut: d
